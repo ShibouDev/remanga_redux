@@ -1,31 +1,35 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import {FormGroup, FormControlLabel, Switch, CardHeader, Paper} from "@mui/material"
+import {FormGroup, Paper, IconButton} from "@mui/material"
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
 export const Header = () => {
 const theme = useSelector((state) => state.theme);
+console.log(theme)
 const dispatch = useDispatch();
 const ToggleSwitch  = () => {
+    if(theme.darkTheme == false){
+        return(
+            <FormGroup>
+              <IconButton aria-label='theme'
+              onClick={() => dispatch(toggleTheme())}>
+                <DarkModeIcon/>
+              </IconButton>
+            </FormGroup>
+        )
+    }
+   else{
     return(
-             <div
-        style={{
-         
-        }}
-      >
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={theme.darkTheme}
-                onChange={() => dispatch(toggleTheme())}
-              />
-            }
-            label="Toggle Theme"
-          />
+          <IconButton aria-label='theme'
+          onClick={() => dispatch(toggleTheme())}>
+            <FlareIcon/>
+          </IconButton>
         </FormGroup>
-      </div>
     )
+   }
 };
     return(
         <ThemeProvider theme={theme.darkTheme ? darkTheme : lightTheme}>
@@ -33,6 +37,7 @@ const ToggleSwitch  = () => {
             width: '100%',
             display: 'flex',
             borderRadius: '0',
+            padding: 8,
         }}>
         <ToggleSwitch />
         </Paper>
