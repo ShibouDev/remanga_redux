@@ -5,7 +5,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
-import ButtonPrimary from "../Button/Button"
+import {ButtonPrimary, ButtonBlue} from "../Button/Button"
 export const Header = () => {
 const theme = useSelector((state) => state.theme);
 const dispatch = useDispatch();
@@ -32,17 +32,21 @@ const ToggleSwitch  = () => {
    }
 };
     return(
-        <ThemeProvider theme={theme.darkTheme ? darkTheme : lightTheme}>
+      <ThemeProvider theme={theme.darkTheme ? darkTheme : lightTheme}>
         <Paper style={{
-            width: '100%',
-            display: 'flex',
-            borderRadius: '0',
-            padding: 8,
+          maxWidth: 'xl',
+          display: 'flex',
+          borderRadius: '0',
+          padding: "8px 0",
+          boxShadow: "none",
         }}>
-            <ButtonPrimary text="Читать мангу"/>
+            <ButtonPrimary text="Каталог"/>
+            <ButtonPrimary text="Что почитать"/>
+            <ButtonBlue text="Новеллы"></ButtonBlue>
         <ToggleSwitch />
         </Paper>
         </ThemeProvider>
+
     )
 }
 export default Header
