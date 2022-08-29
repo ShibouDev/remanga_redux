@@ -5,9 +5,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
+import ButtonPrimary from "../Button/Button"
 export const Header = () => {
 const theme = useSelector((state) => state.theme);
-console.log(theme)
 const dispatch = useDispatch();
 const ToggleSwitch  = () => {
     if(theme.darkTheme == false){
@@ -39,6 +39,7 @@ const ToggleSwitch  = () => {
             borderRadius: '0',
             padding: 8,
         }}>
+            <ButtonPrimary text="Читать мангу"/>
         <ToggleSwitch />
         </Paper>
         </ThemeProvider>

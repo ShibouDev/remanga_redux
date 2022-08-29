@@ -1,9 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
-import { ThemeProvider } from "@mui/material/styles";
-import {Button} from '@mui/material/Button';
-import { darkTheme, lightTheme } from "../theme/theme";
-import { toggleTheme } from "../theme/themeSlice";
+import Button from '@mui/material/Button';
 
-export const Button = (props) => {
-    <Button >{props.text}</Button>
+export const ButtonPrimary = (props) => {
+    return (
+    <Button variant='primary'>{props.text}</Button>
+    )
 }
+export default ButtonPrimary
