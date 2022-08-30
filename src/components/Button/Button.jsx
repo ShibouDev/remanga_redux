@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 export const ButtonPrimary = (props) => {
     return (
     <Button variant='primary' sx={{
-        padding: "0.775rem",
+        textTransform: 'none'
     }}>{props.text}</Button>
     )
 }

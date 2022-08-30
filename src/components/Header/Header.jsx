@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import {FormGroup, Paper, IconButton} from "@mui/material"
+import {FormGroup, Paper, IconButton, Stack, Container} from "@mui/material"
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
@@ -10,7 +11,7 @@ export const Header = () => {
 const theme = useSelector((state) => state.theme);
 const dispatch = useDispatch();
 const ToggleSwitch  = () => {
-    if(theme.darkTheme == false){
+    if(theme.darkTheme === false){
         return(
             <FormGroup>
               <IconButton aria-label='theme'
@@ -37,13 +38,26 @@ const ToggleSwitch  = () => {
           maxWidth: 'xl',
           display: 'flex',
           borderRadius: '0',
-          padding: "8px 0",
+          padding: "16px 0",
           boxShadow: "none",
         }}>
-            <ButtonPrimary text="Каталог"/>
-            <ButtonPrimary text="Что почитать"/>
-            <ButtonBlue text="Новеллы"></ButtonBlue>
-        <ToggleSwitch />
+          <Container maxWidth="xl" sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
+            {BrowserView ? 
+            <><Stack direction="row" spacing={1}>
+                <ButtonPrimary text="Каталог" />
+                <ButtonPrimary text="Что почитать" />
+                <ButtonBlue text="Новеллы"></ButtonBlue>
+              </Stack>
+              <Stack direction="row" spacing={1}>
+                  <ToggleSwitch />
+                  <ButtonPrimary text="Войти" />
+                </Stack></> : <ButtonPrimary text="Войти" />}
+         
+            </Container>
+
         </Paper>
         </ThemeProvider>
 
