@@ -1,13 +1,15 @@
 import { useState,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ThemeProvider } from '@mui/material/styles';
-import {FormGroup, Paper, IconButton, Stack, Container} from "@mui/material"
+import { ThemeProvider} from '@mui/material/styles';
+import {FormGroup, Paper, IconButton, Stack, Container, Avatar, TextField} from "@mui/material"
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
 import {ButtonPrimary, ButtonBlue} from "../Button/Button"
 import {isDesktop} from "../Core/Breakpoints/Breakpoints"
+import black_avatar from "../../assets/images/avatar_black.jpg"
+import white_avatar from "../../assets/images/avatar_white.jpg"
 export const Header = () => {
 const [w, setW] = useState(window.innerWidth)
 useEffect(() => {
@@ -62,10 +64,25 @@ const ToggleSwitch  = () => {
                   <ButtonPrimary text="Войти" />
                 </Stack></>
            : 
-           <Stack direction="row" spacing={1}>
+             <Container maxWidth="xl" sx={{
+              justifyContent: 'space-between',
+             }}>
+           <Stack direction="row" justifyContent="space-between" alignItems="center">
           <ToggleSwitch />
-          <ButtonPrimary text="Войти" />
+          <TextField
+            label="Что ищем, солнышко ♡"
+            size="small"
+           sx={{
+            '& .MuiInputBase-root': { borderRadius: "15px" },
+           }}
+          />
+          {theme.darkTheme === false ?
+          <Avatar src={black_avatar} />
+           : 
+           <Avatar src={white_avatar} />
+           }
         </Stack>
+        </Container>
            }
               </Container>
          
