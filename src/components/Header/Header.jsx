@@ -1,7 +1,11 @@
 import { useState,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider} from '@mui/material/styles';
-import {FormGroup, Paper, IconButton, Stack, Container, Avatar, TextField} from "@mui/material"
+import {FormGroup, Paper, IconButton, Stack, Container, Avatar, TextField, Menu, MenuItem,ListItemIcon,ListItemText } from "@mui/material"
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
@@ -11,6 +15,14 @@ import {isDesktop} from "../Core/Breakpoints/Breakpoints"
 import black_avatar from "../../assets/images/avatar_black.jpg"
 import white_avatar from "../../assets/images/avatar_white.jpg"
 export const Header = () => {
+  const [menu, setMenu] = useState(null);
+  const open = menu;
+  const handleClick = (event) => {
+    setMenu(event.currentTarget);
+  };
+  const handleClose = () => {
+    setMenu(null);
+  };
 const [w, setW] = useState(window.innerWidth)
 useEffect(() => {
   window.addEventListener('resize', () => {
@@ -77,9 +89,9 @@ const ToggleSwitch  = () => {
            }}
           />
           {theme.darkTheme === false ?
-          <Avatar src={black_avatar} />
+          <Avatar src={black_avatar} onClick={handleClick}/>
            : 
-           <Avatar src={white_avatar} />
+           <Avatar src={white_avatar} onClick={handleClick}/>
            }
         </Stack>
         </Container>
@@ -87,8 +99,42 @@ const ToggleSwitch  = () => {
               </Container>
          
          </Paper>
+         <Menu
+        id="basic-menu"
+        anchorEl={menu}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+            <InsertEmoticonIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Профиль</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+            <FolderOpenIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Каталог</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+            <AutoStoriesIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Что почитать</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose} sx={{
+          backgroundColor: "#4e6baf"
+        }}> <ListItemIcon>
+        <MenuBookIcon fontSize="small" />
+      </ListItemIcon>
+      <ListItemText>Новеллы</ListItemText>
+      </MenuItem>
+      </Menu>
         </ThemeProvider>
-
     )
 }
 export default Header
