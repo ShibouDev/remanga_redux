@@ -1,13 +1,20 @@
+import { useState,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import {FormGroup, Paper, IconButton, Stack, Container} from "@mui/material"
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
 import {ButtonPrimary, ButtonBlue} from "../Button/Button"
+import {isDesktop, isTablet, isMobile} from "../Core/Breakpoints/Breakpoints"
 export const Header = () => {
+const [w, setW] = useState(window.innerWidth)
+useEffect(() => {
+  window.addEventListener('resize', () => {
+  setW(window.innerWidth)
+  })
+}, [])
 const theme = useSelector((state) => state.theme);
 const dispatch = useDispatch();
 const ToggleSwitch  = () => {
@@ -45,20 +52,21 @@ const ToggleSwitch  = () => {
             display: 'flex',
             justifyContent: 'space-between',
           }}>
-            {BrowserView ? 
-            <><Stack direction="row" spacing={1}>
-                <ButtonPrimary text="Каталог" />
-                <ButtonPrimary text="Что почитать" />
-                <ButtonBlue text="Новеллы"></ButtonBlue>
-              </Stack>
-              <Stack direction="row" spacing={1}>
+            {w >= isDesktop ?
+            <Stack direction="row" spacing={1}>
+            <ButtonPrimary text="Каталог" />
+            <ButtonPrimary text="Что почитать" />
+            <ButtonBlue text="Новеллы"></ButtonBlue>
+          </Stack>  
+           : 
+           <Stack direction="row" spacing={1}>
                   <ToggleSwitch />
                   <ButtonPrimary text="Войти" />
-                </Stack></> : <ButtonPrimary text="Войти" />}
+                </Stack>
+           }
+                </Container>
          
-            </Container>
-
-        </Paper>
+         </Paper>
         </ThemeProvider>
 
     )
