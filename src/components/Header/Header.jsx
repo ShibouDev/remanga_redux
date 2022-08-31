@@ -7,7 +7,7 @@ import FlareIcon from '@mui/icons-material/Flare';
 import { darkTheme, lightTheme } from '../theme/theme';
 import { toggleTheme } from '../theme/themeSlice';
 import {ButtonPrimary, ButtonBlue} from "../Button/Button"
-import {isDesktop, isTablet, isMobile} from "../Core/Breakpoints/Breakpoints"
+import {isDesktop} from "../Core/Breakpoints/Breakpoints"
 export const Header = () => {
 const [w, setW] = useState(window.innerWidth)
 useEffect(() => {
@@ -53,18 +53,21 @@ const ToggleSwitch  = () => {
             justifyContent: 'space-between',
           }}>
             {w >= isDesktop ?
-            <Stack direction="row" spacing={1}>
-            <ButtonPrimary text="Каталог" />
-            <ButtonPrimary text="Что почитать" />
-            <ButtonBlue text="Новеллы"></ButtonBlue>
-          </Stack>  
-           : 
-           <Stack direction="row" spacing={1}>
+            <><Stack direction="row" spacing={1}>
+                <ButtonPrimary text="Каталог" />
+                <ButtonPrimary text="Что почитать" />
+                <ButtonBlue text="Новеллы"></ButtonBlue>
+              </Stack><Stack direction="row" spacing={1}>
                   <ToggleSwitch />
                   <ButtonPrimary text="Войти" />
-                </Stack>
+                </Stack></>
+           : 
+           <Stack direction="row" spacing={1}>
+          <ToggleSwitch />
+          <ButtonPrimary text="Войти" />
+        </Stack>
            }
-                </Container>
+              </Container>
          
          </Paper>
         </ThemeProvider>
