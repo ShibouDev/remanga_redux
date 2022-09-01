@@ -17,10 +17,14 @@ const settingSlider = {
     dots: false,
     infinity: false,
     speed: 500,
-    slidesToShow: w > isDesktop ? 
+    slidesToShow: w > isDesktop ? 8 : 3,
+    slidesToScrill: w > isDesktop ? 4 : 3
 }
     return(
-
+      <ThemeProvider theme={theme.darkTheme ? darkTheme : lightTheme}>
+        <Slider {...settingSlider}>
+        </Slider>
+      </ThemeProvider>
     )
 }
 export default Carousel
