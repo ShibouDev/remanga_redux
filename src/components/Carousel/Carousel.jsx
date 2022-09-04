@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { darkTheme, lightTheme } from '../theme/theme';
-import {FormGroup, Paper, IconButton, Stack, Container, Avatar, TextField, Menu, MenuItem,ListItemIcon,ListItemText } from "@mui/material"
+import {Paper,Container} from "@mui/material"
 import {isDesktop} from "../Core/Breakpoints/Breakpoints"
 import titles from '../Data/titles';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 export const Carousel = () => {
 const [w, setW] = useState(window.innerWidth)
 useEffect(() => {
@@ -27,17 +26,30 @@ const settingSlider = {
     return(
       <ThemeProvider theme={theme.darkTheme ? darkTheme : lightTheme}>
         <Paper sx={{
-            maxWidth: 'xl',
-            borderRadius: '0', 
-            boxShadow: "none",
+              borderRadius: '0',
+              padding: "16px 0",
+              boxShadow: "none",
         }}>
-        <Slider {...settingSlider}>
-            {titles.map((el) => 
-            <Container>
-                <img src={require('../../assets/images/' + el.imgname + '.jpg')}></img>
-                <p>{el.name}</p>
-            </Container>)}
+         <CarouselProvider
+        naturalSlideWidth={100}
+        naturalSlideHeight={125}
+        totalSlides={22}
+        visibleSlides={12}
+        >
+          <Slider>
+            {titles.map((el, index) => 
+          <Slide index={index}>
+            <img style={{backgroundSize: 'cover'}} src={require('../../assets/images/' + el.imgname + '.jpg')}></img>
+            <p>{el.name}</p>
+          </Slide>
+          )}
         </Slider>
+        </CarouselProvider>
+            {/* <Container>
+                <img style={{backgroundSize: 'cover'}} src={require('../../assets/images/' + el.imgname + '.jpg')}></img>
+                <p>{el.name}</p>
+            </Container>)} */}
+        {/* </Slider> */}
         </Paper>
       </ThemeProvider>
     )
