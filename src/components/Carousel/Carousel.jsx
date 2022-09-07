@@ -5,6 +5,7 @@ import { darkTheme, lightTheme } from '../theme/theme';
 import {Paper,Container} from "@mui/material"
 import {isDesktop} from "../Core/Breakpoints/Breakpoints"
 import titles from '../Data/titles';
+import "./carousel.css"
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 export const Carousel = () => {
@@ -31,14 +32,22 @@ const settingSlider = {
               boxShadow: "none",
         }}>
          <CarouselProvider
+         className='carouselOverflow'
         naturalSlideWidth={100}
         naturalSlideHeight={125}
-        totalSlides={22}
-        visibleSlides={12}
+        totalSlides={12}
+        visibleSlides={w > isDesktop ? 20 : 10}
         >
-          <Slider>
+          <Slider style={{
+            display: "flex",
+          }}>
             {titles.map((el, index) => 
-          <Slide index={index}>
+          <Slide index={index} style={{
+            flex: "0 0 160px",
+            width: "160px",
+            maxWidth: "160px",
+            paddingBottom: "330px",
+          }}>
             <img style={{backgroundSize: 'cover'}} src={require('../../assets/images/' + el.imgname + '.jpg')}></img>
             <p>{el.name}</p>
           </Slide>
